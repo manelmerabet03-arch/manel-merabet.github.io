@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  PAGE DÉTAILLÉE : Simulateur de tirs au but (C++)                ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║  Contenu tiré du code : main.cpp, bibliotheque_du_code.h/.cpp    ║
+  ║                                                                  ║
+  ║  RAPPELS :                                                       ║
+  ║  - Chaque texte est écrit 2 fois : class="fr" et class="en".     ║
+  ║    ⚠️ Modifie LES DEUX versions.                                 ║
+  ║  - ✏️ = à vérifier ou compléter. Ctrl + F "✏️" pour tout trouver. ║
+  ║  - Un <li> doit TOUJOURS être à l'intérieur d'un <ul>.           ║
+  ║                                                                  ║
+  ║  Pas d'image obligatoire : l'exemple de console est écrit        ║
+  ║  directement dans la page (bloc class="console").                ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+<html lang="fr" data-lang="fr" data-title-fr="Simulateur de tirs au but – Manel Merabet" data-title-en="Penalty shoot-out simulator – Manel Merabet">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulateur de tirs au but – Manel Merabet</title>
+
+  <!-- Remet la langue et le thème choisis (ne pas toucher) -->
+  <script>
+    (function () {
+      var r = document.documentElement;
+      try {
+        var t = localStorage.getItem('theme'), l = localStorage.getItem('lang');
+        if (t) r.setAttribute('data-theme', t);
+        if (l) { r.setAttribute('data-lang', l); r.lang = l; }
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Style propre à cette page : formules et bloc "console" -->
+  <style>
+    .formule { font-family: "Space Grotesk", sans-serif; font-size: 1.05rem; color: var(--texte); background: var(--fond); border: 1px solid var(--bordure); border-radius: 10px; padding: 12px 16px; margin: 6px 0 14px; text-align: center; }
+    .console { background: #0f1419; color: #d7e3f0; font-family: Consolas, "Courier New", monospace; font-size: 0.84rem; line-height: 1.55; padding: 18px 20px; border-radius: 12px; overflow-x: auto; white-space: pre; margin: 18px 0 8px; }
+    .console .saisie { color: #94b6e0; }
+    .console .ok { color: #7ee2a8; font-weight: bold; }
+    .legende { font-size: 0.85rem; color: var(--texte-doux); text-align: center; }
+  </style>
+</head>
+<body class="page-detail">
+
+  <!-- Barre du haut : nom, lien retour, boutons langue et thème -->
+  <header>
+    <nav class="conteneur">
+      <a href="index.html" class="logo">Manel <span>Merabet</span></a>
+      <a href="index.html#projets" class="retour">← <span class="texte-retour"><span class="fr">Retour au portfolio</span><span class="en">Back to portfolio</span></span></a>
+      <div class="reglages">
+        <button class="petit-bouton" onclick="changerLangue()" aria-label="Changer de langue / Switch language"><span class="fr">EN</span><span class="en">FR</span></button>
+        <button class="petit-bouton" id="bouton-theme" onclick="changerTheme()" aria-label="Mode clair / sombre">☾</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ==================================================================
+         EN-TÊTE DE LA PAGE
+         ================================================================== -->
+    <section class="detail-hero">
+      <div class="conteneur etroit">
+        <span class="badge"><span class="fr">Projet de programmation · C++</span><span class="en">Programming project · C++</span></span>
+        <h1><span class="fr">Simulateur de tirs au but</span><span class="en">Penalty shoot-out simulator</span></h1>
+        
+        <p class="meta"> <span class="fr">Mars 2025 · IUT de Saint-Étienne · en binôme</span><span class="en">March 2025 · UIT of Saint-Etienne · pair</span></p>
+        <p class="resume fr">Un programme en C++ qui calcule la trajectoire d'un ballon soumis au vent et prédit si le tir est marqué, arrêté par le gardien ou raté.</p>
+        <p class="resume en">A C++ program that calculates the path of a ball pushed by the wind and predicts whether the shot is scored, saved by the goalkeeper or missed.</p>
+        <div class="etiquettes"><span>C++</span><span>Code::Blocks</span><span><span class="fr">Modélisation physique</span><span class="en">Physics modelling</span></span><span><span class="fr">Programmation modulaire</span><span class="en">Modular programming</span></span></div>
+        <!-- Trajectoire calculée avec les équations du programme.
+             style="..." : l'image s'affiche en entier (pas coupée). Clic = ouvre en grand. -->
+        <a href="projet-simulateur.png" target="_blank"><img src="projet-simulateur.png" alt="Trajectoire du ballon / Ball trajectory" class="image-principale" style="aspect-ratio: auto; object-fit: contain; background: #fff;"></a>
+      </div>
+    </section>
+
+    <section>
+      <div class="conteneur etroit">
+
+        <!-- ---------------- CONTEXTE ---------------- -->
+        <div class="bloc">
+          <h2><span class="fr">L'idée</span><span class="en">The idea</span></h2>
+          <p class="fr">L'objectif était de créer un <strong>simulateur physique</strong> en C++. J'ai choisi le tir au but : l'utilisateur entre les paramètres d'un tir (vitesse et angles du ballon, position de départ, vent, taille du gardien) et le programme calcule la trajectoire pour savoir si le ballon entre dans la cage.</p>
+          <p class="en">The goal was to build a <strong>physics simulator</strong> in C++. I chose the penalty kick: the user enters the parameters of a shot (ball speed and angles, starting position, wind, goalkeeper height) and the program calculates the path to find out whether the ball goes into the goal.</p>
+          <p class="fr">Le programme propose deux modes :</p>
+          <p class="en">The program offers two modes:</p>
+          <ul class="fr">
+            <li><strong>Tir unique :</strong> il affiche la force du vent, les composantes de la vitesse, le point d'impact, indique si le but est marqué, puis estime les chances que le gardien arrête le ballon.</li>
+            <li><strong>Séance de tirs au but :</strong> deux équipes tirent à tour de rôle, le programme tient le score, déclare la victoire dès que l'écart est suffisant et passe en mort subite en cas d'égalité.</li>
+          </ul>
+          <ul class="en">
+            <li><strong>Single shot:</strong> it shows the wind force, the speed components and the impact point, says whether a goal is scored, then estimates the goalkeeper's chances of stopping the ball.</li>
+            <li><strong>Penalty shoot-out:</strong> two teams take turns, the program keeps the score, declares a winner as soon as the gap is large enough and goes to sudden death in case of a tie.</li>
+          </ul>
+        </div>
+
+        <!-- ---------------- RÉALISATION ---------------- -->
+        <div class="bloc">
+          <h2><span class="fr">Réalisation</span><span class="en">How I built it</span></h2>
+
+          <!-- ======== ÉTAPE 1 ======== -->
+          <div class="etape">
+            <h3><span class="fr">1. Modéliser le problème</span><span class="en">1. Modelling the problem</span></h3>
+            <p class="fr">Le ballon (0,43 kg) est soumis à son poids et à la force du vent. La vitesse de départ et la force du vent sont décomposées sur les trois axes (x vers le but, y sur la largeur, z en hauteur) à partir d'un angle d'élévation α et d'un angle de déviation φ. La force du vent dépend du carré de sa vitesse :</p>
+            <p class="en">The ball (0.43 kg) is subject to its weight and to the wind force. The initial speed and the wind force are split along the three axes (x towards the goal, y across, z upwards) using an elevation angle α and a side angle φ. The wind force depends on the square of its speed:</p>
+            <p class="formule">F<sub><span class="fr">vent</span><span class="en">wind</span></sub> = K · v<sub><span class="fr">vent</span><span class="en">wind</span></sub>²</p>
+            <p class="fr">Les forces étant constantes, chaque position suit une équation du second degré en fonction du temps, par exemple sur la hauteur :</p>
+            <p class="en">Since the forces are constant, each position follows a second-degree equation over time, for example for the height:</p>
+            <p class="formule">z(t) = ½ (F<sub>z</sub>/m − g) t² + v<sub>z</sub> t + z<sub>0</sub></p>
+          </div>
+
+          <!-- ======== ÉTAPE 2 ======== -->
+          <div class="etape">
+            <h3><span class="fr">2. Trouver le point d'impact</span><span class="en">2. Finding the impact point</span></h3>
+            <p class="fr">Pour savoir quand le ballon atteint la ligne de but, le programme résout l'équation du second degré sur l'axe x (calcul du discriminant) et garde la solution positive. Il en déduit la position du ballon (y, z) à cet instant, puis vérifie s'il est dans la cage de 7,32 × 2,44 m.</p>
+            <p class="en">To find when the ball reaches the goal line, the program solves the second-degree equation on the x axis (using the discriminant) and keeps the positive solution. It then works out the ball's position (y, z) at that moment and checks whether it is inside the 7.32 × 2.44 m goal.</p>
+          </div>
+
+          <!-- ======== ÉTAPE 3 ======== -->
+          <div class="etape">
+            <h3><span class="fr">3. Ajouter le gardien</span><span class="en">3. Adding the goalkeeper</span></h3>
+            <p class="fr">Le gardien part du centre de la cage. Sa portée est estimée à partir de sa taille, de la longueur moyenne d'un bras (0,7 m) et de sa détente (1 m). Le programme compare cette portée à la distance entre le centre de la cage et le point d'impact, et selon le côté où il plonge, annonce une chance d'arrêt de 0 %, 50 % ou 90 %. Il simule aussi le cas d'un gardien qui part toujours du bon côté.</p>
+            <p class="en">The goalkeeper starts in the centre of the goal. Their reach is estimated from their height, the average arm length (0.7 m) and their jump (1 m). The program compares this reach with the distance between the centre of the goal and the impact point and, depending on which side they dive, gives a 0 %, 50 % or 90 % chance of a save. It also simulates a goalkeeper who always dives the right way.</p>
+          </div>
+
+          <!-- ======== ÉTAPE 4 ======== -->
+          <div class="etape">
+            <h3><span class="fr">4. Organiser le code</span><span class="en">4. Structuring the code</span></h3>
+            <p class="fr">Le code est découpé en un programme principal et une bibliothèque (fichiers .h et .cpp) qui regroupe les fonctions : conversion d'unités (km/h → m/s, degrés → radians), force du vent, vitesse initiale, trajectoire et séance de tirs au but. Chaque calcul peut ainsi être testé et réutilisé séparément.</p>
+            <p class="en">The code is split into a main program and a library (.h and .cpp files) holding the functions: unit conversion (km/h → m/s, degrees → radians), wind force, initial speed, trajectory and shoot-out. Each calculation can therefore be tested and reused on its own.</p>
+          </div>
+        </div>
+
+        <!-- ---------------- RÉSULTATS ----------------
+             Exemple réel : programme lancé avec un vent de 5 m/s,
+             un tir à 25 m/s depuis 11 m, angle 8°, déviation 3°. -->
+        <div class="bloc">
+          <h2><span class="fr">Résultat</span><span class="en">Result</span></h2>
+          <p class="fr">Exemple de simulation : un tir à 25 m/s depuis le point de penalty (11 m), avec un vent de 5 m/s. Le ballon arrive à 0,61 m du sol, hors de portée du gardien : le but est marqué.</p>
+          <p class="en">Sample run: a 25 m/s shot from the penalty spot (11 m), with a 5 m/s wind. The ball reaches the goal 0.61 m above the ground, out of the goalkeeper's reach: goal scored.</p>
+
+<div class="console">Force due au vent :
+F_vx = 0.576113 N
+F_vy = 0 N
+F_vz = 0.101584 N
+Composantes de la vitesse initiale :
+v_Dx = 24.7228 m/s
+v_Dy = 1.29567 m/s
+v_Dz = 3.47933 m/s
+Point d'impact :
+Y = 4.22322 m
+Z = 0.60792 m
+<span class="ok">Le ballon entre dans la cage ! But marqué !</span>
+Sur quel côté pensez-vous que le gardien sautera ? <span class="saisie">0</span>
+Le gardien ne pourra pas intercepter la balle.</div>
+          <p class="legende"><span class="fr">Sortie réelle du programme dans la console (mode tir unique)</span><span class="en">Actual program output in the console (single-shot mode, in French)</span></p>
+        </div>
+
+        <!-- ---------------- AMÉLIORATIONS ---------------- -->
+        <div class="bloc">
+          <h2><span class="fr">Pistes d'amélioration</span><span class="en">Next improvements</span></h2>
+          <ul class="fr">
+            <li>prendre en compte la résistance de l'air sur le ballon et l'effet donné au tir ;</li>
+            <li>afficher la trajectoire sous forme de graphique plutôt qu'en texte.</li>
+          </ul>
+          <ul class="en">
+            <li>take into account air resistance on the ball and the spin given to the shot;</li>
+            <li>display the trajectory as a graph instead of text.</li>
+          </ul>
+        </div>
+
+        
+      </div>
+    </section>
+
+  </main>
+
+  <footer>© 2026 Manel Merabet</footer>
+  <script src="script.js"></script>
+</body>
+</html>

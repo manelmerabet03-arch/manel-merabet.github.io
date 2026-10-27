@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║                 E-PORTFOLIO DE MANEL MERABET                     ║
+  ║          (format ENSEEIHT – CAM L3 – 6 onglets obligatoires)     ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║  NOUVEAU DANS CETTE VERSION :                                    ║
+  ║  - Bouton ☀/☾ en haut : mode clair / mode sombre                 ║
+  ║  - Bouton FR/EN en haut : version française / anglaise           ║
+  ║  - Boutons "En savoir plus" :                                    ║
+  ║      · semestre → s'ouvre dans la page                           ║
+  ║      · stage et projets → ouvrent une PAGE DÉTAILLÉE dans le     ║
+  ║        même onglet (stage-nba-techno.html, projet-robot.html,    ║
+  ║        projet-accelerometre.html, projet-simulateur.html)        ║
+  ║                                                                  ║
+  ║  ⭐ COMMENT MARCHE LE FRANÇAIS / ANGLAIS :                        ║
+  ║  Chaque texte est écrit DEUX FOIS, l'un sous l'autre :           ║
+  ║     <p class="fr">Bonjour</p>                                    ║
+  ║     <p class="en">Hello</p>                                      ║
+  ║  Le site affiche seulement celui de la langue choisie.           ║
+  ║  ⚠️ Quand tu modifies un texte, modifie LES DEUX versions.       ║
+  ║                                                                  ║
+  ║  ⭐ COMMENT MARCHE "EN SAVOIR PLUS" :                             ║
+  ║     <details>                                                    ║
+  ║       <summary>En savoir plus</summary>   ← le bouton            ║
+  ║       ... contenu caché qui s'ouvre au clic ...                  ║
+  ║     </details>                                                   ║
+  ║                                                                  ║
+  ║  RAPPELS :                                                       ║
+  ║  - ✏️ = à modifier / compléter   ⚠️ = attention                  ║
+  ║  - Ctrl + F puis "✏️" pour trouver tous les endroits à remplir.  ║
+  ║  - Ne supprime jamais une balise fermante (</p>, </div>...).     ║
+  ║                                                                  ║
+  ║  FICHIERS DU SITE (tous dans le MÊME dossier) :                  ║
+  ║  index.html (cette page) · style.css (style de TOUTES les pages, ║
+  ║  dont les couleurs) · script.js (boutons FR/EN et ☾/☀)           ║
+  ║  + les 4 pages détaillées citées plus haut                       ║
+  ║  + tes images et CV :                                            ║
+  ║  photo.jpg · CV_Manel_Merabet_FR.pdf · CV_Manel_Merabet_EN.pdf   ║
+  ║  projet-robot.png · projet-accelerometre.jpg                     ║
+  ║  projet-simulateur-carte.png · sport.jpg · peinture.jpg          ║
+  ║  voyages.jpg                                                     ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+<html lang="fr" data-lang="fr" data-title-fr="Manel Merabet – E-portfolio ENSEEIHT" data-title-en="Manel Merabet – ENSEEIHT e-portfolio">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manel Merabet – E-portfolio ENSEEIHT</title>
+  <meta name="description" content="E-portfolio de Manel Merabet, élève ingénieure à l'ENSEEIHT : projets, mobilité, engagement et projet professionnel.">
+
+  <!-- Remet la langue et le thème choisis lors de la dernière visite (ne pas toucher) -->
+  <script>
+    (function () {
+      var r = document.documentElement;
+      try {
+        var t = localStorage.getItem('theme');
+        var l = localStorage.getItem('lang');
+        if (t) r.setAttribute('data-theme', t);
+        if (l) { r.setAttribute('data-lang', l); r.lang = l; }
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tout le style (couleurs, tailles...) est dans style.css -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ==================================================================
+       MENU (les 6 onglets N7) + boutons langue et thème
+       ================================================================== -->
+  <header>
+    <nav class="conteneur">
+      <a href="#accueil" class="logo">Manel <span>Merabet</span></a>
+
+      <ul class="menu" onclick="this.classList.remove('ouvert')">
+        <li><a href="#accueil"><span class="fr">Accueil</span><span class="en">Welcome</span></a></li>
+        <li><a href="#ingenierie"><span class="fr">Ingénierie</span><span class="en">Engineering</span></a></li>
+        <li><a href="#mobilite"><span class="fr">Mobilité</span><span class="en">Mobility</span></a></li>
+        <li><a href="#engagement"><span class="fr">Engagement</span><span class="en">Engagement</span></a></li>
+        <li><a href="#activites"><span class="fr">Sport &amp; activités</span><span class="en">Sport &amp; activities</span></a></li>
+        <li><a href="#carriere"><span class="fr">Carrière</span><span class="en">Career</span></a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="reglages">
+        <!-- Bouton langue : affiche la langue vers laquelle on va basculer -->
+        <button class="petit-bouton" onclick="changerLangue()" aria-label="Changer de langue / Switch language">
+          <span class="fr">EN</span><span class="en">FR</span>
+        </button>
+        <!-- Bouton thème clair / sombre -->
+        <button class="petit-bouton" id="bouton-theme" onclick="changerTheme()" aria-label="Mode clair / sombre">☾</button>
+        <button class="bouton-menu" aria-label="Menu" onclick="document.querySelector('.menu').classList.toggle('ouvert')">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ==================================================================
+         ONGLET 1 : WELCOME (Accueil)
+         ================================================================== -->
+    <section id="accueil">
+      <div class="conteneur accueil-grille">
+        <div>
+          <span class="badge">
+            <span class="fr">Électronique &amp; Systèmes embarqués</span>
+            <span class="en">Electronics &amp; Embedded Systems</span>
+          </span>
+
+          <h1>Manel Merabet</h1>
+
+          <!-- ✏️ Ta présentation (présent → passé bref → ce que tu cherches) -->
+          <p class="accroche fr">
+            Élève ingénieure en Électrique, Électronique, Énergie et Automatique en 1re année à l'ENSEEIHT.
+          </p>
+          <p class="accroche en">
+            First-year engineering student in Electrical Engineering, Electronics, Energy and Automation at ENSEEIHT.
+          </p>
+
+          <div class="infos">
+            <span>📍 Toulouse, France</span>
+            <span>🎓 ENSEEIHT – Toulouse INP</span>
+          </div>
+
+          <div class="boutons">
+            <a href="#pitch" class="bouton plein">Elevator Pitch</a>
+            <a href="CV_Manel_Merabet_FR.pdf" class="bouton plein fr" target="_blank">CV</a>
+            <a href="CV_Manel_Merabet_EN.pdf" class="bouton plein en" target="_blank">Resume</a>
+            <a href="#contact" class="bouton vide">Contact</a>
+            
+            
+          </div>
+        </div>
+
+        <!-- ✏️ Ta photo : photo.jpg dans le dossier -->
+        <img src="photo.jpg" alt="Manel Merabet" class="photo">
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         ONGLET 2 : ENGINEERING COURSE (Parcours ingénieur)
+         Formation (frise) → Projets de mobilité → Compétences → Projets
+         ================================================================== -->
+    <section id="ingenierie">
+      <div class="conteneur">
+        <h2 class="titre-section"><span class="fr">Bienvenue !</span><span class="en">Welcome!</span></h2>
+        <p class="sous-titre">
+          <span class="fr">Vous êtes au bon endroit ! Ici, vous trouverez des détails sur mon parcours scolaire, mes projets académiques et mon expérience professionnelle, ainsi que sur mes projets de mobilité et mon engagement civique. N'hésitez pas à me contacter si vous avez des questions.</span>
+          <span class="en">You are in the right place! Here you will find details about my education, my academic projects and my work experience, as well as my mobility plans and civic engagement. Feel free to contact me if you have any questions.</span>
+        </p>
+
+       
+        <!-- ---------------- FORMATION (même format que les expériences) ----------------
+             ✏️ Un bloc <article class="carte"> par diplôme, le plus récent en haut. -->
+        <h3 id="formation"><span class="fr">Formation</span><span class="en">Education</span></h3>
+        <div class="frise">
+
+          <article class="carte">
+            <span class="meta">2026 – 2029 · Toulouse</span>
+            <h4>
+              <span class="fr">Diplôme d'ingénieur – ENSEEIHT, Toulouse INP</span>
+              <span class="en">Engineering degree – ENSEEIHT, Toulouse INP</span>
+            </h4>
+            <p class="fr">Électrique, Électronique, Énergie et Automatique.</p>
+            <p class="en">Electrical Engineering, Electronics, Energy and Automation.</p>
+          </article>
+
+          <article class="carte">
+            <span class="meta">2024 – 2026 · Saint-Étienne</span>
+            <h4>
+              <span class="fr">DUT GEII – IUT de Saint-Étienne, Université Jean Monnet</span>
+              <span class="en">Bachelor of Technology in Electrical Engineering – IUT Saint-Étienne</span>
+            </h4>
+            <p class="fr">Génie Électrique et Informatique Industrielle, spécialité Électronique et Systèmes Embarqués.</p>
+            <p class="en">Electrical Engineering and Industrial Computing, specialising in Electronics and Embedded Systems.</p>
+          </article>
+
+          <article class="carte">
+            <span class="meta">2024 · <span class="fr">Alger, Algérie</span><span class="en">Algiers, Algeria</span></span>
+            <h4>
+              <span class="fr">Baccalauréat Mathématiques – Mention Très bien</span>
+              <span class="en">Baccalaureate in Mathematics – Highest Honours</span>
+            </h4>
+            <p>Lycée El Macir</p>
+          </article>
+
+        </div>
+
+        <!-- ---------------- PROJETS DE MOBILITÉ ----------------
+             1 grande carte "Semestre à l'étranger" (avec En savoir plus → 3 universités)
+             + 1 carte stage + 1 carte Népal.
+             ⚠️ Pense à relier chaque université à un de tes 3 role models (onglet Carrière). -->
+        <h3 id="projets-mobilite"><span class="fr">Projets de mobilité</span><span class="en">Mobility plans</span></h3>
+        <div class="grille">
+
+          <!-- ======== SEMESTRE À L'ÉTRANGER ======== -->
+          <article class="carte large">
+            <span class="icone">🎓</span>
+            <h4><span class="fr">Semestre à l'étranger</span><span class="en">Semester abroad</span></h4>
+            <p class="fr">Trois universités partenaires de l'ENSEEIHT, choisies pour leur niveau en génie électrique et pour la ville qui les accueille.</p>
+            <p class="en">Three ENSEEIHT partner universities, chosen for their strength in electrical engineering and for the city around them.</p>
+
+            <details>
+              <summary><span class="fr">En savoir plus</span><span class="en">Learn more</span></summary>
+              <div class="details-contenu">
+                <div class="universites">
+
+                  <!-- ---- Université 1 : TUM ---- -->
+                  <div class="universite">
+                    <img class="drapeau" src="https://flagcdn.com/w80/de.png" alt="Allemagne">
+                    <h5>Technische Universität München (TUM)</h5>
+                    <span class="meta">
+                      <span class="fr">Munich, Allemagne · Erasmus+ · Electricity and energy</span>
+                      <span class="en">Munich, Germany · Erasmus+ · Electricity and energy</span>
+                    </span>
+                    <p class="fr"><strong>L'école :</strong> l'une des meilleures universités techniques d'Europe, très reconnue en génie électrique, énergie et systèmes embarqués, avec une recherche très active.</p>
+                    <p class="en"><strong>The school:</strong> one of Europe's leading technical universities, highly regarded in electrical engineering, energy and embedded systems, with very active research.</p>
+                    <p class="fr"><strong>La ville :</strong> Munich est un grand pôle industriel (Siemens, Infineon, BMW, Rohde &amp; Schwarz), avec une excellente qualité de vie, et l'occasion d'améliorer mon allemand.</p>
+                    <p class="en"><strong>The city:</strong> Munich is a major industrial hub (Siemens, Infineon, BMW, Rohde &amp; Schwarz), with a high quality of life,  and a chance to improve my German language.</p>
+                  </div>
+
+                  <!-- ---- Université 2 : University of Sydney ----
+                       ⚠️ D'après ta capture, l'accord se termine le 08/10/2025 :
+                          vérifie auprès des relations internationales qu'il est renouvelé. -->
+                  <div class="universite">
+                    <img class="drapeau" src="https://flagcdn.com/w80/au.png" alt="Australie">
+                  
+                    <h5>The University of Sydney</h5>
+                    <span class="meta">
+                      <span class="fr">Sydney, Australie · Échange bilatéral</span>
+                      <span class="en">Sydney, Australia · Bilateral exchange</span>
+                    </span>
+                    <p class="fr"><strong>L'école :</strong> la plus ancienne université d'Australie et l'une des mieux classées au monde, avec une faculté d'ingénierie réputée en génie électrique et électronique.</p>
+                    <p class="en"><strong>The school:</strong> Australia's oldest university and one of the highest-ranked in the world, with a renowned faculty of engineering in electrical and electronic engineering.</p>
+                    <p class="fr"><strong>La ville :</strong> Sydney est la plus grande ville d'Australie, un centre économique international, avec une immersion totale en anglais et une vie au bord de l'océan.</p>
+                    <p class="en"><strong>The city:</strong> Sydney is Australia's largest city and an international business hub, offering full English immersion and life by the ocean.</p>
+                  </div>
+
+                  <!-- ---- Université 3 : Tokyo City University ----
+                       ⚠️ Vérifie que l'accord est toujours actif et que les cours de génie électrique
+                          sont ouverts aux étudiants de l'N7. -->
+                  <div class="universite">
+                    <img class="drapeau" src="https://flagcdn.com/w80/jp.png" alt="Japon">
+                    <h5>Tokyo City University (TCU)</h5>
+                    <span class="meta">
+                      <span class="fr">Tokyo, Japon · Échange bilatéral</span>
+                      <span class="en">Tokyo, Japan · Bilateral exchange</span>
+                    </span>
+                    <p class="fr"><strong>L'école :</strong> une université japonaise spécialisée en sciences et ingénierie, avec des formations en génie électrique et électronique.</p>
+                    <p class="en"><strong>The school:</strong> a Japanese university specialising in science and engineering, offering electrical and electronic engineering courses.</p>
+                    <p class="fr"><strong>La ville :</strong> Tokyo est une capitale mondiale de l'électronique et de la robotique (Sony, Toshiba, NEC), et une immersion dans une culture très différente.</p>
+                    <p class="en"><strong>The city:</strong> Tokyo is a world capital of electronics and robotics (Sony, Toshiba, NEC), and an immersion in a very different culture.</p>
+                  </div>
+
+                </div>
+              </div>
+            </details>
+          </article>
+
+          <!-- ======== STAGE DANS UNE MULTINATIONALE ======== -->
+          <article class="carte">
+            <span class="icone">🏢</span>
+            <h4><span class="fr">Stage dans une multinationale</span><span class="en">Internship in a multinational company</span></h4>
+            <span class="meta"><span class="fr">Canada ou Europe</span><span class="en">Canada or Europe</span></span>
+            <!-- ✏️ Précise : quel stage (S8, fin d'études ?), quel secteur, quelles entreprises visées -->
+            <p class="fr">Effectuer un stage en systèmes embarqués au sein d'un grand groupe international, pour découvrir un environnement de travail multiculturel et travailler en anglais.</p>
+            <p class="en">Complete an embedded systems internship in a large international company, to experience a multicultural work environment and work in English.</p>
+          </article>
+
+          <!-- ======== NÉPAL – HUMAN7 ======== -->
+          <article class="carte">
+            <span class="icone">🏔️</span>
+            <h4><span class="fr">Voyage humanitaire au Népal</span><span class="en">Humanitarian trip to Nepal</span></h4>
+            <span class="meta"><span class="fr">Avec l'association HUMAN7</span><span class="en">With the HUMAN7 association</span></span>
+            <!-- ✏️ Précise : la mission prévue, la période, ton rôle -->
+            <p class="fr">Participer à une mission humanitaire au Népal avec HUMAN7, pour m'engager sur un projet utile et découvrir une autre culture.</p>
+            <p class="en">Take part in a humanitarian mission in Nepal with HUMAN7, to contribute to a meaningful project and discover another culture.</p>
+          </article>
+
+        </div>
+
+        <!-- ---------------- COMPÉTENCES ----------------
+             Les noms techniques (C, Python...) sont les mêmes en FR et EN. -->
+        <h3 id="competences"><span class="fr">Compétences</span><span class="en">Skills</span></h3>
+        <div class="competences">
+          <div class="carte">
+            <h4><span class="fr">Programmation</span><span class="en">Programming</span></h4>
+            <ul><li>C</li><li>C++</li><li>C#</li><li>Python</li><li>SQL</li><li>Ladder</li></ul>
+          </div>
+          <div class="carte">
+            <h4><span class="fr">Logiciels</span><span class="en">Software</span></h4>
+            <ul><li>KiCad</li><li>MATLAB</li><li>STM32CubeIDE</li><li>MPLAB X IDE</li><li>LabVIEW</li><li>Visual Studio</li><li>Quartus</li><li>Proteus</li></ul>
+          </div>
+          <div class="carte">
+            <h4><span class="fr">Communication</span><span class="en">Communication protocols</span></h4>
+            <ul><li>I²C</li><li>UART</li><li>RS-232</li><li>RS-485</li></ul>
+          </div>
+          <div class="carte">
+            <h4><span class="fr">Microcontrôleurs</span><span class="en">Microcontrollers</span></h4>
+            <ul><li>STM32</li><li>PIC (Microchip)</li><li>Arduino</li></ul>
+          </div>
+          <div class="carte">
+            <h4><span class="fr">Mesure</span><span class="en">Test &amp; measurement</span></h4>
+            <ul>
+              <li><span class="fr">Oscilloscope</span><span class="en">Oscilloscope</span></li>
+              <li><span class="fr">Analyseur logique</span><span class="en">Logic analyzer</span></li>
+              <li><span class="fr">Soudure</span><span class="en">Soldering</span></li>
+            </ul>
+          </div>
+          <div class="carte">
+            <h4><span class="fr">Savoir-être</span><span class="en">Soft skills</span></h4>
+            <ul>
+              <li><span class="fr">Pédagogie</span><span class="en">Teaching</span></li>
+              <li><span class="fr">Travail en équipe</span><span class="en">Teamwork</span></li>
+              <li><span class="fr">Rigueur</span><span class="en">Rigour</span></li>
+              <li><span class="fr">Créativité</span><span class="en">Creativity</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ---------------- PROJETS ACADÉMIQUES ----------------
+             Titre + résumé court + bouton "En savoir plus" qui ouvre la page détaillée.
+             ✏️ Le détail de chaque projet se modifie dans son propre fichier
+                (projet-robot.html, projet-accelerometre.html, projet-simulateur.html).
+             ✏️ Pour un nouveau projet : copie un bloc <article> ... </article> entier. -->
+        <h3 id="projets"><span class="fr">Projets académiques</span><span class="en">Academic projects</span></h3>
+        <div class="grille">
+
+          <!-- ======== PROJET 1 : ROBOT ======== -->
+          <article class="carte">
+            <img src="projet-robot.png" alt="Robot Formule 1 / Formula 1 Robot">
+            <span class="meta"><span class="fr">IUT Saint-Étienne</span><span class="en">IUT Saint-Étienne</span></span>
+            <h4><span class="fr">Robot Formule 1 </span><span class="en">Formula 1 robot</span></h4>
+            <p class="fr">Conception et programmation d'un robot Formule 1.</p>
+            <p class="en">Design and programming of a Formula 1 robot.</p>
+            <div class="etiquettes"><span>STM32</span><span>Proteus</span><span>I²C</span><span>C</span><span>SolidWorks</span></div>
+            <!-- "En savoir plus" ouvre la page détaillée projet-robot.html (dans le même onglet) -->
+            <a href="projet-robot.html" class="bouton-lien"><span class="fr">En savoir plus</span><span class="en">Learn more</span> →</a>
+          </article>
+
+          <!-- ======== PROJET 2 : ACCÉLÉROMÈTRE ======== -->
+          <article class="carte">
+            <!-- style="..." : l'image s'affiche en entier, sans être coupée -->
+            <img src="projet-accelerometre.jpg" alt="Accéléromètre / Accelerometer">
+            <span class="meta"><span class="fr">SAE · en binôme</span><span class="en">Pair project</span></span>
+            <h4><span class="fr">Compteur de mouvements</span><span class="en">Motion counter</span></h4>
+            <p class="fr">Une application LabVIEW qui mesure l'accélération sur trois axes et compte les mouvements en temps réel.</p>
+            <p class="en">A LabVIEW application that measures acceleration on three axes and counts movements in real time.</p>
+            <div class="etiquettes"><span>LabVIEW</span><span>ADXL335</span><span>DAQ</span></div>
+            <!-- "En savoir plus" ouvre la page détaillée projet-accelerometre.html (dans le même onglet) -->
+            <a href="projet-accelerometre.html" class="bouton-lien"><span class="fr">En savoir plus</span><span class="en">Learn more</span> →</a>
+          </article>
+
+          <!-- ======== PROJET 3 : SIMULATEUR C++ ======== -->
+          <article class="carte">
+            <!-- style="..." : l'image s'affiche en entier, sans être coupée -->
+            <img src="projet-simulateur-carte.png" alt="Simulateur de tirs au but / Penalty shoot-out simulator" >
+            <span class="meta"><span class="fr">Projet de programmation</span><span class="en">Programming project</span></span>
+            <h4><span class="fr">Simulateur de tirs au but</span><span class="en">Penalty shoot-out simulator</span></h4>
+            <p class="fr">Un programme en C++ qui calcule la trajectoire d'un ballon soumis au vent et prédit si le tir est marqué.</p>
+            <p class="en">A C++ program that calculates a ball's path in the wind and predicts whether the shot is scored.</p>
+            <div class="etiquettes"><span>C++</span><span>Code::Blocks</span><span><span class="fr">Modélisation physique</span><span class="en">Physics modelling</span></span></div>
+            <!-- "En savoir plus" ouvre la page détaillée projet-simulateur.html (dans le même onglet) -->
+            <a href="projet-simulateur.html" class="bouton-lien"><span class="fr">En savoir plus</span><span class="en">Learn more</span> →</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    
+
+    <!-- ==================================================================
+         ONGLET 4 : SUSTAINABILITY & CIVIC ENGAGEMENT
+         ================================================================== -->
+    <section id="engagement">
+      <div class="conteneur">
+        <h2 class="titre-section"><span class="fr">Développement durable &amp; engagement civique</span><span class="en">Sustainability &amp; civic engagement</span></h2>
+        <p class="sous-titre">
+          <span class="fr">Mes actions pour l'environnement et mon implication auprès des autres.</span>
+          <span class="en">My actions for the environment and my involvement with others.</span>
+        </p>
+
+        <!-- ---------------- MES ENGAGEMENTS ----------------
+             4 cartes sur une même ligne (style="..." sur la grille).
+             ✏️ Pour ajouter une action : copie un bloc <article class="carte"> ... </article>. -->
+        <div class="grille" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+
+          <!-- ======== FRESQUE DU CLIMAT ======== -->
+          <article class="carte">
+            <span class="icone">🌍</span>
+            <span class="meta"><span class="fr">Atelier collaboratif</span><span class="en">Collaborative workshop</span></span>
+            <h4><span class="fr">La Fresque du Climat</span><span class="en">The Climate Fresk</span></h4>
+            <p class="fr">Un atelier en équipe, basé sur les rapports du GIEC, pour relier les causes et les conséquences du dérèglement climatique. Il m'a montré le rôle des ingénieurs dans la conception de solutions plus sobres.</p>
+            <p class="en">A team workshop, based on IPCC reports, linking the causes and consequences of climate change. It showed me the role engineers play in designing more sustainable solutions.</p>
+          </article>
+
+          <!-- ======== FUTUR PROCHE ======== -->
+          <article class="carte">
+            <span class="icone">🖼️</span>
+            <span class="meta"><span class="fr">Festival Futur Proche · INSA Toulouse</span><span class="en">Futur Proche festival · INSA Toulouse</span></span>
+            <h4><span class="fr">Exposition « Écologie : un enjeu de justice sociale »</span><span class="en">Exhibition “Ecology: a matter of social justice”</span></h4>
+            <p class="fr">Une exposition sur le lien entre transition écologique et inégalités sociales. Elle m'a rappelé que les solutions techniques doivent aussi être justes et accessibles à tous.</p>
+            <p class="en">An exhibition on the link between the ecological transition and social inequality. It reminded me that technical solutions must also be fair and accessible to all.</p>
+          </article>
+
+          <!-- ======== CLEAN WALK ======== -->
+          <article class="carte">
+            <span class="icone">🧤</span>
+            <span class="meta"><span class="fr">Action citoyenne · Toulouse</span><span class="en">Community action · Toulouse</span></span>
+            <h4>Clean walk</h4>
+            <p class="fr">Une marche collective pour ramasser les déchets abandonnés dans les rues de Toulouse. Elle m'a montré qu'une action simple et collective peut avoir un impact visible.</p>
+            <p class="en">A group walk to pick up litter in the streets of Toulouse. It showed me that a simple, collective action can have a visible impact.</p>
+          </article>
+
+          <!-- ======== TUTORAT ======== -->
+          <article class="carte">
+            <span class="icone">📚</span>
+            <span class="meta">2025 – 2026 · IUT Saint-Étienne</span>
+            <h4><span class="fr">Tutorat en mathématiques et électronique</span><span class="en">Peer tutoring in mathematics and electronics</span></h4>
+            <p class="fr">Tutrice bénévole pour les étudiants de 1re année : explications, exercices et corrections. J'ai appris à reformuler une notion pour m'adapter à chacun.</p>
+            <p class="en">Volunteer tutor for first-year students: explanations, exercises and marking. I learned to rephrase an idea to suit each student.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         ONGLET 5 : SPORT & OTHER ACTIVITIES
+         ================================================================== -->
+    <section id="activites">
+      <div class="conteneur">
+        <h2 class="titre-section"><span class="fr">Sport &amp; activités</span><span class="en">Sport &amp; activities</span></h2>
+        <p class="sous-titre">
+          <span class="fr">Mes passions en dehors de l'ingénierie.</span>
+          <span class="en">My passions outside engineering.</span>
+        </p>
+
+        <div class="grille">
+          <article class="carte">
+            <img src="sport.jpg" alt="Sport">
+            <h4>🏀 <span class="fr">Sports</span><span class="en">Sports</span></h4>
+            <p class="fr">Basket-ball et badminton.</p>
+            <p class="en">Basketball and badminton.</p>
+            <p class="fr">Participation à la coupe des IUT 2025.</p>
+            <p class="en">Took part in the 2025 IUT Cup (French university institutes of technology).</p>
+          </article>
+          <article class="carte">
+            <img src="peinture.jpg" alt="Peinture / Painting">
+            <h4>🎨 <span class="fr">Peinture</span><span class="en">Painting</span></h4>
+            <p class="fr">Participation à plusieurs expositions.</p>
+            <p class="en">My work has been shown in several exhibitions.</p>
+          </article>
+          <article class="carte">
+            <img src="voyages.jpg" alt="Voyages / Travel">
+            <h4>✈️ <span class="fr">Voyages</span><span class="en">Travel</span></h4>
+            <p class="fr">États-Unis, Canada, Espagne, Turquie.</p>
+            <p class="en">USA, Canada, Spain, Turkey.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         ONGLET 6 : CAREER DEVELOPMENT (pitch + stages)
+         ⚠️ NE PAS SUPPRIMER les 2 lignes <section ...> et <div class="conteneur"> :
+            ce sont elles qui gardent la section centrée dans la page.
+         ================================================================== -->
+    <section id="carriere">
+      <div class="conteneur">
+
+        <!-- ---------------- VIDÉO PITCH ----------------
+             ✏️ Mets ta vidéo sur YouTube en "Non répertoriée", puis remplace
+                ID_DE_TA_VIDEO par son identifiant (les lettres après "watch?v="). -->
+        <h3 id="pitch">Elevator pitch</h3>
+        <p class="intro">
+          <span class="fr">Ma Unique Value Proposition en 2-3 minutes (en anglais).</span>
+          <span class="en">My Unique Value Proposition in 2-3 minutes.</span>
+        </p>
+        <!-- style="..." : la vidéo est centrée -->
+        <div class="video" style="margin: 0 auto;">
+          <iframe src="https://www.youtube.com/embed/ID_DE_TA_VIDEO" title="Elevator pitch – Manel Merabet" allowfullscreen></iframe>
+        </div>
+
+       
+        <!-- ---------------- STAGES & EXPÉRIENCES ----------------
+             "En savoir plus" ouvre stage-nba-techno.html (le détail se modifie là-bas). -->
+        <h3 id="stages"><span class="fr">Stages &amp; expériences</span><span class="en">Internships &amp; experience</span></h3>
+        <div class="frise">
+
+          <!-- ======== STAGE NBA TECHNO ======== -->
+          <article class="carte">
+            <span class="meta"><span class="fr">Avril – Juin 2026</span><span class="en">April – June 2026</span> · Saint-Jean-Bonnefonds</span>
+            <h4><span class="fr">Stage en Recherche &amp; Développement – NBA Techno</span><span class="en">Research &amp; Development intern – NBA Techno</span></h4>
+            <p class="fr">Développement logiciel et électronique autour d'un appareil de rééducation.</p>
+            <p class="en">Software and hardware development for a rehabilitation device.</p>
+            <div class="etiquettes"><span>STM32</span><span>PIC18F66K40</span><span>C</span><span>Python</span><span>RS-485</span></div>
+
+            <!-- "En savoir plus" ouvre la page détaillée stage-nba-techno.html (dans le même onglet) -->
+            <a href="stage-nba-techno.html" class="bouton-lien"><span class="fr">En savoir plus</span><span class="en">Learn more</span> →</a>
+          </article>
+
+          <!-- ======== AMBASSADRICE ======== -->
+          <article class="carte">
+            <span class="meta">2025 – 2026 · IUT Saint-Étienne</span>
+            <h4><span class="fr">Ambassadrice du département GEII</span><span class="en">Student ambassador – Electrical Engineering department</span></h4>
+            <p class="fr">Présentation du département GEII aux lycéens et collégiens lors du Forum de l'étudiant de Lyon.</p>
+            <p class="en">Presented the Electrical Engineering department to high school and middle school students at the Lyon Student Forum.</p>
+          </article>
+
+        </div>
+
+       
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         CONTACT
+         ================================================================== -->
+    <section id="contact">
+      <div class="conteneur">
+        <h2 class="titre-section">Contact</h2>
+        
+        <div class="contact-grille">
+          <div class="carte">
+            <h4>Email</h4>
+            <a href="mailto:manel.merabet@etu.toulouse-inp.fr">manel.merabet@etu.toulouse-inp.fr</a>
+          </div>
+          <div class="carte">
+            <h4><span class="fr">Téléphone</span><span class="en">Phone</span></h4>
+            <a href="tel:+33751299580">+33 7 51 29 95 80</a>
+          </div>
+          <div class="carte">
+            <h4>LinkedIn</h4>
+            <a href="https://www.linkedin.com/in/manel-merabet" target="_blank"><span class="fr">Mon profil LinkedIn</span><span class="en">My LinkedIn profile</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>© 2026 Manel Merabet</footer>
+
+  <!-- Boutons langue et thème : le code est dans script.js (ne pas toucher) -->
+  <script src="script.js"></script>
+
+</body>
+</html>

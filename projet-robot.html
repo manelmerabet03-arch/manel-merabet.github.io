@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  PAGE DÉTAILLÉE : Robot Formule 1 (SAE – DUT GEII)               ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║  Contenu tiré du rapport "Conception d'un Robot Formule 1        ║
+  ║  Autonome" (IUT Saint-Étienne, avril 2026).                      ║
+  ║                                                                  ║
+  ║  RAPPELS :                                                       ║
+  ║  - Chaque texte est écrit 2 fois : class="fr" et class="en".     ║
+  ║    ⚠️ Modifie LES DEUX versions.                                 ║
+  ║  - Pour ajouter une étape : copie un bloc <div class="etape">.   ║
+  ║  - Une liste à puces : <ul> ... </ul> avec un <li> par puce.     ║
+  ║    ⚠️ Un <li> doit TOUJOURS être à l'intérieur d'un <ul>.        ║
+  ║                                                                  ║
+  ║  IMAGES À METTRE DANS LE DOSSIER :                               ║
+  ║  projet-robot.png · robot-schema.jpg · robot-forme.jpg           ║
+  ║  robot-oscillo.jpg                                               ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+<html lang="fr" data-lang="fr" data-title-fr="Robot Formule 1 – Manel Merabet" data-title-en="Formula 1 robot – Manel Merabet">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robot Formule 1 – Manel Merabet</title>
+
+  <!-- Remet la langue et le thème choisis (ne pas toucher) -->
+  <script>
+    (function () {
+      var r = document.documentElement;
+      try {
+        var t = localStorage.getItem('theme'), l = localStorage.getItem('lang');
+        if (t) r.setAttribute('data-theme', t);
+        if (l) { r.setAttribute('data-lang', l); r.lang = l; }
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ============================================================
+       TAILLE DES IMAGES DE CETTE PAGE
+       ✏️ Pour agrandir ou réduire les images, change les max-width :
+          - .image-principale : l'image en haut de la page
+          - .figures figure   : les images dans le texte
+       ============================================================ -->
+  <style>
+    .image-principale { max-width: 560px; margin-left: auto; margin-right: auto; display: block; }
+    .figures { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 22px 0 6px; }
+    .figures figure { flex: 1 1 260px; max-width: 360px; text-align: center; }
+    .figures img { width: 100%; border-radius: 10px; border: 1px solid var(--bordure); background: #fff; }
+    .figures figcaption { font-size: 0.85rem; color: var(--texte-doux); margin-top: 8px; }
+  </style>
+</head>
+<body class="page-detail">
+
+  <!-- Barre du haut : nom, lien retour, boutons langue et thème -->
+  <header>
+    <nav class="conteneur">
+      <a href="index.html" class="logo">Manel <span>Merabet</span></a>
+      <a href="index.html#projets" class="retour">← <span class="texte-retour"><span class="fr">Retour au portfolio</span><span class="en">Back to portfolio</span></span></a>
+      <div class="reglages">
+        <button class="petit-bouton" onclick="changerLangue()" aria-label="Changer de langue / Switch language"><span class="fr">EN</span><span class="en">FR</span></button>
+        <button class="petit-bouton" id="bouton-theme" onclick="changerTheme()" aria-label="Mode clair / sombre">☾</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ==================================================================
+         EN-TÊTE DE LA PAGE
+         ================================================================== -->
+    <section class="detail-hero">
+      <div class="conteneur etroit">
+        <span class="badge"><span class="fr">Projet académique · IUT Saint-Étienne</span><span class="en">Academic project · IUT Saint-Étienne</span></span>
+        <h1><span class="fr">Robot Formule 1</span><span class="en">Formula 1 robot</span></h1>
+        <p class="meta"><span class="fr">Projet de 2e année de DUT GEII · 2025 – 2026</span><span class="en">Second-year DUT project · 2025 – 2026</span></p>
+        <p class="resume fr">Conception complète d'un robot autonome suiveur de ligne : carte électronique, forme du robot, programmation du STM32 et tests.</p>
+        <p class="resume en">End-to-end design of an autonomous line-following robot: circuit board, robot shape, STM32 programming and testing.</p>
+        <div class="etiquettes"><span>STM32</span><span>Proteus</span><span>SolidWorks</span><span>I²C</span><span>MCP23017</span><span>QRE1113</span><span>PWM</span><span>C</span></div>
+        <!-- Rendu du robot final -->
+        <img src="projet-robot.png" alt="Robot Formule 1" class="image-principale">
+      </div>
+    </section>
+
+    <section>
+      <div class="conteneur etroit">
+
+        <!-- ---------------- CONTEXTE ---------------- -->
+        <div class="bloc">
+          <h2><span class="fr">Le contexte et l'objectif</span><span class="en">Context and goal</span></h2>
+          <p class="fr">Dans le cadre d'une SAE de 2e année de DUT GEII, l'objectif était de concevoir, réaliser et programmer un robot <strong>entièrement autonome</strong> capable de suivre une ligne noire de 19 mm sur un circuit fermé, et de réaliser le meilleur temps en 3 minutes sur un circuit sans obstacle.</p>
+          <p class="en">As part of a second-year project in my Electrical Engineering degree, the goal was to design, build and program a <strong>fully autonomous</strong> robot able to follow a 19 mm black line around a closed track, and to set the best time within 3 minutes on a track with no obstacles.</p>
+
+          <p class="fr"><strong>Contraintes :</strong> robot de 20 × 20 cm maximum, démarrage et arrêt automatiques sans intervention humaine, microcontrôleur STM32, alimentation sur batterie (LiPo 7,4 V retenue). Piste : bâche blanche de 4 × 8 m, virages de 20 cm de rayon minimum et croisements.</p>
+          <p class="en"><strong>Constraints:</strong> robot no larger than 20 × 20 cm, automatic start and stop with no human input, STM32 microcontroller, battery power (7.4 V LiPo chosen). Track: 4 × 8 m white sheet, bends with a minimum 20 cm radius, and crossings.</p>
+        </div>
+
+        <!-- ---------------- RÉALISATION ---------------- -->
+        <div class="bloc">
+          <h2><span class="fr">Réalisation</span><span class="en">How I built it</span></h2>
+
+          <!-- ======== ÉTAPE 1 ======== -->
+          <div class="etape">
+            <h3><span class="fr">1. Une architecture en une seule carte</span><span class="en">1. A single-board design</span></h3>
+            <p class="fr">Tous les composants du robot sont regroupés sur une seule et unique carte en forme de voiture de F1.</p>
+            <p class="en">All the robot's components are gathered on one single circuit board shaped like an F1 car.</p>
+
+            <ul class="fr">
+              <li><strong>Composants :</strong> un microcontrôleur STM32L432KC (Nucleo-32) ; un driver double pont en H pour contrôler le sens de rotation et la vitesse (PWM) des deux moteurs ; des régulateurs 5 V et 3,3 V qui abaissent la tension de 7,4 V de la batterie pour fournir la tension nécessaire à chaque composant ; un module de démarrage par télécommande ; 16 capteurs optiques QRE1113 ; un expandeur d'entrées/sorties MCP23017 ; et deux moteurs Pololu 6 V (réduction 5:1) avec des roues en silicone JSumo de 33 mm, qui donnent une vitesse théorique à vide d'environ 8 km/h et une bonne adhérence sur la bâche.</li>
+              <li><strong>Carte :</strong> le robot n'a pas de châssis. J'ai dessiné la silhouette de la carte sous SolidWorks en respectant les 20 × 20 cm, puis je l'ai exportée en DXF pour définir le contour de la carte dans Proteus. J'ai ensuite réalisé le typon à partir du schéma électrique. Enfin, j'ai soudé les composants et monté les roues. Des entretoises règlent la hauteur des capteurs au-dessus de la piste pour obtenir une lecture précise.</li>
+            </ul>
+            <ul class="en">
+              <li><strong>Components:</strong> an STM32L432KC microcontroller (Nucleo-32); a dual H-bridge driver to control the direction and speed (PWM) of both motors; 5 V and 3.3 V regulators that step down the battery's 7.4 V to supply each component with the voltage it needs; a remote-start module; 16 QRE1113 optical sensors; an MCP23017 input/output expander; and two Pololu 6 V motors (5:1 gear ratio) with 33 mm JSumo silicone wheels, giving a theoretical no-load speed of about 8 km/h and good grip on the track.</li>
+              <li><strong>Board:</strong> the robot has no chassis. I drew the board's outline in SolidWorks within the 20 × 20 cm limit, then exported it as DXF to define the board edge in Proteus. I then designed the PCB layout from the schematic. Finally, I soldered the components and fitted the wheels. Spacers set the sensors' height above the track for accurate readings.</li>
+            </ul>
+
+            <!-- Deux images côte à côte, centrées. Clic = ouvre l'image en grand -->
+            <div class="figures">
+              <figure>
+                <a href="robot-schema.jpg" target="_blank"><img src="robot-schema.jpg" alt="Schéma électronique / Schematic"></a>
+                <figcaption><span class="fr">Schéma électronique (Proteus)</span><span class="en">Schematic (Proteus)</span></figcaption>
+              </figure>
+              <figure>
+                <a href="robot-forme.jpg" target="_blank"><img src="robot-forme.jpg" alt="Forme SolidWorks / SolidWorks outline"></a>
+                <figcaption><span class="fr">Forme du robot dessinée sous SolidWorks</span><span class="en">Robot outline drawn in SolidWorks</span></figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <!-- ======== ÉTAPE 2 ======== -->
+          <div class="etape">
+            <h3><span class="fr">2. Programmation du STM32</span><span class="en">2. STM32 programming</span></h3>
+            <p class="fr">Le code est écrit en C sous STM32CubeIDE. Les moteurs sont pilotés en PWM grâce aux timers, réglés sur une fréquence de quelques kHz : inaudible, elle lisse aussi le courant des moteurs. Toutes les 20 ms, le programme lit les capteurs et ajuste la vitesse de chaque roue pour garder le robot sur la ligne.</p>
+            <p class="en">The code is written in C in STM32CubeIDE. The motors are driven by PWM using the timers, set to a few kHz: inaudible, this frequency also smooths the motor current. Every 20 ms, the program reads the sensors and adjusts the speed of each wheel to keep the robot on the line.</p>
+          </div>
+        </div>
+
+        <!-- ---------------- DIFFICULTÉS ---------------- -->
+        <div class="bloc">
+          <h2><span class="fr">Difficultés et solutions</span><span class="en">Challenges and solutions</span></h2>
+          <ul class="fr">
+            <li><strong>Bornier de batterie inversé sur la carte :</strong> j'ai coupé les pistes en cuivre et soudé des fils avec la bonne polarité.</li>
+            <li><strong>Module du driver moteur imprimé à l'envers :</strong> je l'ai surélevé avec des broches pour éviter la surchauffe du composant.</li>
+            <li><strong>Capteurs dans le désordre :</strong> l'ordre physique des capteurs ne correspondait pas à l'ordre des entrées du MCP23017. J'ai refait la correspondance dans un tableau Excel, puis remis les capteurs dans l'ordre dans le code, bit par bit.</li>
+            <li><strong>Vérification à l'oscilloscope :</strong> j'ai contrôlé les signaux I²C (SDA, SCL) et les sorties des capteurs ; le décodage I²C a confirmé l'adresse 0x20 du MCP23017.</li>
+          </ul>
+          <ul class="en">
+            <li><strong>Battery connector reversed on the board:</strong> I cut the copper tracks and soldered wires with the correct polarity.</li>
+            <li><strong>Motor driver module printed upside down:</strong> I raised it on header pins to stop the component from overheating.</li>
+            <li><strong>Sensors out of order:</strong> the physical order of the sensors did not match the MCP23017 input order. I rebuilt the mapping in an Excel table, then put the sensors back in order in the code, bit by bit.</li>
+            <li><strong>Oscilloscope checks:</strong> I checked the I²C signals (SDA, SCL) and the sensor outputs; I²C decoding confirmed the MCP23017 address (0x20).</li>
+          </ul>
+
+          <!-- Une seule image, centrée -->
+          <div class="figures">
+            <figure>
+              <a href="robot-oscillo.jpg" target="_blank"><img src="robot-oscillo.jpg" alt="Oscilloscope"></a>
+              <figcaption><span class="fr">Décodage I²C à l'oscilloscope</span><span class="en">I²C decoding on the oscilloscope</span></figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- ---------------- RÉSULTATS ---------------- -->
+        <div class="bloc">
+          <h2><span class="fr">Résultats</span><span class="en">Results</span></h2>
+          <p class="fr"><strong>Épreuve réussie :</strong> le robot suit la ligne de bout en bout, démarre et s'arrête seul, avec des corrections de trajectoire efficaces, dans le respect des contraintes de taille et de délai.</p>
+          <p class="en"><strong>Challenge passed:</strong> the robot follows the line from start to finish, starts and stops on its own, with effective course corrections, within the size and time constraints.</p>
+
+          <p class="fr"><strong>Pistes d'amélioration :</strong></p>
+          <p class="en"><strong>Next improvements:</strong></p>
+          <ul class="fr">
+            <li>un régulateur PID, avec des capteurs espacés régulièrement, pour des trajectoires plus fluides et plus rapides ;</li>
+            <li>réordonner les capteurs sur la carte pour qu'ils suivent l'ordre des broches du MCP23017.</li>
+          </ul>
+          <ul class="en">
+            <li>a PID controller, with evenly spaced sensors, for smoother and faster driving;</li>
+            <li>reorder the sensors on the board so they follow the MCP23017 pin order.</li>
+          </ul>
+        </div>
+
+        <div class="pied-detail">
+          <a href="index.html#projets" class="bouton vide">← <span class="fr">Retour au portfolio</span><span class="en">Back to portfolio</span></a>
+          <a href="index.html#contact" class="bouton plein">Contact</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>© 2026 Manel Merabet</footer>
+  <script src="script.js"></script>
+</body>
+</html>

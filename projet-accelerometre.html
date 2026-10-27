@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  PAGE DÉTAILLÉE : Compteur de mouvements (SAE Elen3)             ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║  Contenu tiré du compte rendu "SAE – Elen3 – compteur de         ║
+  ║  mouvement" (novembre 2025).                                     ║
+  ║                                                                  ║
+  ║  RAPPELS :                                                       ║
+  ║  - Chaque texte est écrit 2 fois : class="fr" et class="en".     ║
+  ║    ⚠️ Modifie LES DEUX versions.                                 ║
+  ║  - ✏️ = à vérifier ou compléter. Ctrl + F "✏️" pour tout trouver. ║
+  ║  - Un <li> doit TOUJOURS être à l'intérieur d'un <ul>.           ║
+  ║                                                                  ║
+  ║  IMAGES À METTRE DANS LE DOSSIER :                               ║
+  ║  projet-accelerometre.jpg (ta photo, en haut de page)            ║
+  ║  accel-capteur.png · accel-vi.png · accel-interface.png          ║
+  ║  (ces 3 images sont tirées du compte rendu)                      ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+<html lang="fr" data-lang="fr" data-title-fr="Compteur de mouvements – Manel Merabet" data-title-en="Motion counter – Manel Merabet">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compteur de mouvements – Manel Merabet</title>
+
+  <!-- Remet la langue et le thème choisis (ne pas toucher) -->
+  <script>
+    (function () {
+      var r = document.documentElement;
+      try {
+        var t = localStorage.getItem('theme'), l = localStorage.getItem('lang');
+        if (t) r.setAttribute('data-theme', t);
+        if (l) { r.setAttribute('data-lang', l); r.lang = l; }
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ============================================================
+       TAILLE DES IMAGES DE CETTE PAGE
+       ✏️ Pour agrandir ou réduire les images, change les max-width :
+          - .image-principale : l'image en haut de la page
+          - .figures figure   : les images dans le texte
+       object-fit: contain = l'image s'affiche EN ENTIER, sans être coupée.
+       ============================================================ -->
+  <style>
+    .image-principale { max-width: 560px; margin-left: auto; margin-right: auto; display: block; object-fit: contain; background: #fff; }
+    .figures { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 22px 0 6px; }
+    .figures figure { flex: 1 1 260px; max-width: 520px; text-align: center; }
+    .figures img { width: 100%; border-radius: 10px; border: 1px solid var(--bordure); background: #fff; }
+    .figures figcaption { font-size: 0.85rem; color: var(--texte-doux); margin-top: 8px; }
+    .formule { font-family: "Space Grotesk", sans-serif; font-size: 1.05rem; color: var(--texte); background: var(--fond); border: 1px solid var(--bordure); border-radius: 10px; padding: 12px 16px; margin: 6px 0 14px; text-align: center; }
+  </style>
+</head>
+<body class="page-detail">
+
+  <!-- Barre du haut : nom, lien retour, boutons langue et thème -->
+  <header>
+    <nav class="conteneur">
+      <a href="index.html" class="logo">Manel <span>Merabet</span></a>
+      <a href="index.html#projets" class="retour">← <span class="texte-retour"><span class="fr">Retour au portfolio</span><span class="en">Back to portfolio</span></span></a>
+      <div class="reglages">
+        <button class="petit-bouton" onclick="changerLangue()" aria-label="Changer de langue / Switch language"><span class="fr">EN</span><span class="en">FR</span></button>
+        <button class="petit-bouton" id="bouton-theme" onclick="changerTheme()" aria-label="Mode clair / sombre">☾</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ==================================================================
+         EN-TÊTE DE LA PAGE
+         ================================================================== -->
+    <section class="detail-hero">
+      <div class="conteneur etroit">
+        <span class="badge"><span class="fr">Projet académique · SAE Elen3</span><span class="en">Academic project · SAE Elen3</span></span>
+        <h1><span class="fr">Compteur de mouvements avec un accéléromètre</span><span class="en">Motion counter with an accelerometer</span></h1>
+        <!-- ✏️ Vérifie : école / année -->
+        <p class="meta"><span class="fr">Projet en binôme · DUT GEII · Novembre 2025</span><span class="en">Pair project · DUT GEII · November 2025</span></p>
+        <p class="resume fr">Une application LabVIEW qui mesure l'accélération sur trois axes, l'affiche en temps réel et compte les mouvements effectués.</p>
+        <p class="resume en">A LabVIEW application that measures acceleration on three axes, displays it in real time and counts the movements made.</p>
+        <div class="etiquettes"><span>LabVIEW</span><span>ADXL335</span><span>DAQ</span><span><span class="fr">Acquisition</span><span class="en">Data acquisition</span></span><span><span class="fr">Traitement du signal</span><span class="en">Signal processing</span></span></div>
+        
+        <div class="figures" style="margin-top: 32px;">
+      <figure>
+          <a href="accel-interface.png" target="_blank"><img src="accel-interface.png" alt="Interface LabVIEW"></a>
+       </figure>
+        </div>
+        
+      </div>
+    </section>
+
+    <section>
+      <div class="conteneur etroit">
+
+        <!-- ---------------- CONTEXTE ---------------- -->
+        <div class="bloc">
+          <h2><span class="fr">Le contexte et l'objectif</span><span class="en">Context and goal</span></h2>
+          <p class="fr">L'objectif de cette SAE était de créer sous LabVIEW une application qui, à partir d'un accéléromètre, donne un <strong>retour visuel en temps réel</strong> :</p>
+          <p class="en">The goal of this project was to build a LabVIEW application that uses an accelerometer to give <strong>real-time visual feedback</strong>:</p>
+          <ul class="fr">
+            <li>le nombre de mouvements effectués depuis le lancement de l'application ;</li>
+            <li>un flash lumineux à chaque mouvement détecté ;</li>
+            <li>un graphe déroulant montrant l'évolution de l'accélération en fonction du temps.</li>
+          </ul>
+          <ul class="en">
+            <li>the number of movements made since the application started;</li>
+            <li>a light flash each time a movement is detected;</li>
+            <li>a scrolling chart showing how the acceleration changes over time.</li>
+          </ul>
+        </div>
+
+        <!-- ---------------- LE CAPTEUR ---------------- -->
+        <div class="bloc">
+          <h2><span class="fr">Le capteur ADXL335</span><span class="en">The ADXL335 sensor</span></h2>
+          <p class="fr">L'ADXL335 est un accéléromètre analogique qui mesure l'accélération sur trois axes (x, y et z), dans une plage de ±3 g, avec une alimentation entre 1,8 V et 3,6 V. Le signal de chaque axe passe par un amplificateur, un démodulateur puis un filtre passe-bas de lissage : on obtient trois tensions de sortie, X<sub>out</sub>, Y<sub>out</sub> et Z<sub>out</sub>.</p>
+          <p class="en">The ADXL335 is an analogue accelerometer that measures acceleration on three axes (x, y and z), over a ±3 g range, with a supply between 1.8 V and 3.6 V. Each axis signal goes through an amplifier, a demodulator and then a low-pass smoothing filter, giving three output voltages: X<sub>out</sub>, Y<sub>out</sub> and Z<sub>out</sub>.</p>
+
+          <div class="figures">
+            <figure>
+              <a href="accel-capteur.png" target="_blank"><img src="accel-capteur.png" alt="ADXL335"></a>
+              <figcaption><span class="fr">Brochage et schéma fonctionnel de l'ADXL335 (datasheet)</span><span class="en">ADXL335 pinout and block diagram (datasheet)</span></figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- ---------------- RÉALISATION ---------------- -->
+        <div class="bloc">
+          <h2><span class="fr">Réalisation</span><span class="en">How we built it</span></h2>
+
+          <!-- ======== ÉTAPE 1 ======== -->
+          <div class="etape">
+            <h3><span class="fr">1. Étalonnage du capteur</span><span class="en">1. Sensor calibration</span></h3>
+            <p class="fr">Nous avons d'abord mesuré la tension de sortie de chaque axe en plaçant le capteur dans différentes positions :</p>
+            <p class="en">We first measured the output voltage of each axis while placing the sensor in different positions:</p>
+            <ul class="fr">
+              <li><strong>axe à l'horizontale (au repos) :</strong> environ 1,27 à 1,30 V, c'est la tension de référence (offset) ;</li>
+              <li><strong>axe tourné vers le haut :</strong> environ 1,52 à 1,57 V ;</li>
+              <li><strong>axe tourné vers le bas :</strong> environ 1,02 à 1,07 V.</li>
+            </ul>
+            <ul class="en">
+              <li><strong>axis horizontal (at rest):</strong> about 1.27 to 1.30 V, the reference (offset) voltage;</li>
+              <li><strong>axis pointing up:</strong> about 1.52 to 1.57 V;</li>
+              <li><strong>axis pointing down:</strong> about 1.02 to 1.07 V.</li>
+            </ul>
+            <p class="fr">Nous en avons retenu les offsets de chaque axe : 1,275 V pour X, 1,274 V pour Y et 1,299 V pour Z.</p>
+            <p class="en">From this we kept the offset of each axis: 1.275 V for X, 1.274 V for Y and 1.299 V for Z.</p>
+          </div>
+
+          <!-- ======== ÉTAPE 2 ======== -->
+          <div class="etape">
+            <h3><span class="fr">2. De la tension à l'accélération</span><span class="en">2. From voltage to acceleration</span></h3>
+            <p class="fr">Pour chaque axe, on convertit la tension mesurée en accélération, avec une sensibilité de 0,20 V/g :</p>
+            <p class="en">For each axis, the measured voltage is converted into acceleration, using a sensitivity of 0.20 V/g:</p>
+            <p class="formule">a<sub>x</sub> = (V<sub><span class="fr">mesurée</span><span class="en">measured</span></sub> − V<sub>offset</sub>) / <span class="fr">0,20</span><span class="en">0.20</span></p>
+            <p class="fr">Puis on calcule l'accélération globale à partir des trois axes :</p>
+            <p class="en">Then the overall acceleration is calculated from the three axes:</p>
+            <p class="formule">a = √(a<sub>x</sub>² + a<sub>y</sub>² + a<sub>z</sub>²)</p>
+          </div>
+
+          <!-- ======== ÉTAPE 3 ======== -->
+          <div class="etape">
+            <h3><span class="fr">3. Programmation sous LabVIEW</span><span class="en">3. Programming in LabVIEW</span></h3>
+            <p class="fr">Le programme (VI) récupère les tensions des trois axes avec le DAQ Assistant, les lisse par une moyenne, calcule a<sub>x</sub>, a<sub>y</sub>, a<sub>z</sub> puis l'accélération globale, et l'affiche sur un graphe déroulant. Quand l'accélération dépasse le seuil de détection, un voyant s'allume et le compteur de mouvements augmente.</p>
+            <p class="en">The program (VI) reads the three axis voltages with the DAQ Assistant, smooths them with an average, calculates a<sub>x</sub>, a<sub>y</sub>, a<sub>z</sub> and then the overall acceleration, and shows it on a scrolling chart. When the acceleration goes above the detection threshold, an indicator lights up and the movement counter goes up.</p>
+
+            <div class="figures">
+              <figure>
+                <a href="accel-vi.png" target="_blank"><img src="accel-vi.png" alt="VI LabVIEW"></a>
+                <figcaption><span class="fr">Diagramme du VI final sous LabVIEW</span><span class="en">Block diagram of the final LabVIEW VI</span></figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------------- DIFFICULTÉS ---------------- -->
+        <div class="bloc">
+          <h2><span class="fr">Difficultés et solutions</span><span class="en">Challenges and solutions</span></h2>
+          <p class="fr">La principale difficulté était de savoir <strong>comment compter un mouvement</strong> à partir de l'accélération. Nous avons choisi de compter un mouvement chaque fois que l'accélération globale dépasse un seuil de <strong>1,85 g</strong>. Le comptage fonctionne, mais reste approximatif selon la vitesse du mouvement.</p>
+          <p class="en">The main challenge was working out <strong>how to count a movement</strong> from the acceleration. We chose to count a movement each time the overall acceleration goes above a threshold of <strong>1.85 g</strong>. The counting works, but remains approximate depending on how fast the movement is.</p>
+        </div>
+
+        <!-- ---------------- RÉSULTATS ---------------- -->
+        <div class="bloc">
+          <h2><span class="fr">Résultats</span><span class="en">Results</span></h2>
+          <p class="fr">L'application répond au cahier des charges : elle affiche en temps réel les tensions et accélérations des trois axes, l'accélération globale sur un graphe déroulant, un voyant qui s'allume à chaque mouvement détecté et le nombre de mouvements.</p>
+          <p class="en">The application meets the requirements: it shows in real time the voltages and accelerations on all three axes, the overall acceleration on a scrolling chart, an indicator that lights up for each detected movement, and the number of movements.</p>
+
+          <div class="figures">
+            <figure>
+              <a href="accel-interface.png" target="_blank"><img src="accel-interface.png" alt="Interface LabVIEW"></a>
+              <figcaption><span class="fr">Face avant : l'accélération pendant une série de mouvements</span><span class="en">Front panel: acceleration during a series of movements</span></figcaption>
+            </figure>
+          </div>
+        </div>
+
+        
+      </div>
+    </section>
+
+  </main>
+
+  <footer>© 2026 Manel Merabet</footer>
+  <script src="script.js"></script>
+</body>
+</html>
