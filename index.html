@@ -1,47 +1,6 @@
 <!DOCTYPE html>
-<!--
-  ╔══════════════════════════════════════════════════════════════════╗
-  ║                 E-PORTFOLIO DE MANEL MERABET                     ║
-  ║          (format ENSEEIHT – CAM L3 – 6 onglets obligatoires)     ║
-  ╠══════════════════════════════════════════════════════════════════╣
-  ║  NOUVEAU DANS CETTE VERSION :                                    ║
-  ║  - Bouton ☀/☾ en haut : mode clair / mode sombre                 ║
-  ║  - Bouton FR/EN en haut : version française / anglaise           ║
-  ║  - Boutons "En savoir plus" :                                    ║
-  ║      · semestre → s'ouvre dans la page                           ║
-  ║      · stage et projets → ouvrent une PAGE DÉTAILLÉE dans le     ║
-  ║        même onglet (stage-nba-techno.html, projet-robot.html,    ║
-  ║        projet-accelerometre.html, projet-simulateur.html)        ║
-  ║                                                                  ║
-  ║  ⭐ COMMENT MARCHE LE FRANÇAIS / ANGLAIS :                        ║
-  ║  Chaque texte est écrit DEUX FOIS, l'un sous l'autre :           ║
-  ║     <p class="fr">Bonjour</p>                                    ║
-  ║     <p class="en">Hello</p>                                      ║
-  ║  Le site affiche seulement celui de la langue choisie.           ║
-  ║  ⚠️ Quand tu modifies un texte, modifie LES DEUX versions.       ║
-  ║                                                                  ║
-  ║  ⭐ COMMENT MARCHE "EN SAVOIR PLUS" :                             ║
-  ║     <details>                                                    ║
-  ║       <summary>En savoir plus</summary>   ← le bouton            ║
-  ║       ... contenu caché qui s'ouvre au clic ...                  ║
-  ║     </details>                                                   ║
-  ║                                                                  ║
-  ║  RAPPELS :                                                       ║
-  ║  - ✏️ = à modifier / compléter   ⚠️ = attention                  ║
-  ║  - Ctrl + F puis "✏️" pour trouver tous les endroits à remplir.  ║
-  ║  - Ne supprime jamais une balise fermante (</p>, </div>...).     ║
-  ║                                                                  ║
-  ║  FICHIERS DU SITE (tous dans le MÊME dossier) :                  ║
-  ║  index.html (cette page) · style.css (style de TOUTES les pages, ║
-  ║  dont les couleurs) · script.js (boutons FR/EN et ☾/☀)           ║
-  ║  + les 4 pages détaillées citées plus haut                       ║
-  ║  + tes images et CV :                                            ║
-  ║  photo.jpg · CV_Manel_Merabet_FR.pdf · CV_Manel_Merabet_EN.pdf   ║
-  ║  projet-robot.png · projet-accelerometre.jpg                     ║
-  ║  projet-simulateur-carte.png · sport.jpg · peinture.jpg          ║
-  ║  voyages.jpg                                                     ║
-  ╚══════════════════════════════════════════════════════════════════╝
--->
+
+
 <html lang="fr" data-lang="fr" data-title-fr="Manel Merabet – E-portfolio ENSEEIHT" data-title-en="Manel Merabet – ENSEEIHT e-portfolio">
 <head>
   <meta charset="UTF-8">
@@ -72,7 +31,7 @@
 <body>
 
   <!-- ==================================================================
-       MENU (les 6 onglets N7) + boutons langue et thème
+       MENU + boutons langue et thème
        ================================================================== -->
   <header>
     <nav class="conteneur">
@@ -81,7 +40,7 @@
       <ul class="menu" onclick="this.classList.remove('ouvert')">
         <li><a href="#accueil"><span class="fr">Accueil</span><span class="en">Welcome</span></a></li>
         <li><a href="#ingenierie"><span class="fr">Ingénierie</span><span class="en">Engineering</span></a></li>
-        <li><a href="#mobilite"><span class="fr">Mobilité</span><span class="en">Mobility</span></a></li>
+        <li><a href="#projets-mobilite"><span class="fr">Mobilité</span><span class="en">Mobility</span></a></li>
         <li><a href="#engagement"><span class="fr">Engagement</span><span class="en">Engagement</span></a></li>
         <li><a href="#activites"><span class="fr">Sport &amp; activités</span><span class="en">Sport &amp; activities</span></a></li>
         <li><a href="#carriere"><span class="fr">Carrière</span><span class="en">Career</span></a></li>
@@ -133,13 +92,36 @@
             <a href="CV_Manel_Merabet_FR.pdf" class="bouton plein fr" target="_blank">CV</a>
             <a href="CV_Manel_Merabet_EN.pdf" class="bouton plein en" target="_blank">Resume</a>
             <a href="#contact" class="bouton vide">Contact</a>
-            
-            
           </div>
         </div>
 
         <!-- ✏️ Ta photo : photo.jpg dans le dossier -->
         <img src="photo.jpg" alt="Manel Merabet" class="photo">
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         ELEVATOR PITCH (juste après l'accueil)
+         Vidéo locale : mets pitch.mp4 (format MP4 / H.264) dans le même dossier.
+         pitch-miniature.jpg = image affichée avant la lecture (optionnel :
+         supprime l'attribut poster="..." si tu n'en as pas).
+         ================================================================== -->
+    <section id="pitch-section">
+      <div class="conteneur">
+        <h3 id="pitch">Elevator pitch</h3>
+        <p class="intro">
+          <span class="fr">Ma Unique Value Proposition en 2-3 minutes (en anglais).</span>
+          <span class="en">My Unique Value Proposition in 2-3 minutes.</span>
+        </p>
+        <!-- style="..." : la vidéo est centrée -->
+        <div class="video" style="margin: 0 auto;">
+           <iframe src="https://www.youtube.com/embed/wHqjFq78ZVw?rel=0"
+            title="Elevator pitch – Manel Merabet"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
+        
       </div>
     </section>
 
@@ -155,7 +137,6 @@
           <span class="en">You are in the right place! Here you will find details about my education, my academic projects and my work experience, as well as my mobility plans and civic engagement. Feel free to contact me if you have any questions.</span>
         </p>
 
-       
         <!-- ---------------- FORMATION (même format que les expériences) ----------------
              ✏️ Un bloc <article class="carte"> par diplôme, le plus récent en haut. -->
         <h3 id="formation"><span class="fr">Formation</span><span class="en">Education</span></h3>
@@ -222,7 +203,7 @@
                     <p class="fr"><strong>L'école :</strong> l'une des meilleures universités techniques d'Europe, très reconnue en génie électrique, énergie et systèmes embarqués, avec une recherche très active.</p>
                     <p class="en"><strong>The school:</strong> one of Europe's leading technical universities, highly regarded in electrical engineering, energy and embedded systems, with very active research.</p>
                     <p class="fr"><strong>La ville :</strong> Munich est un grand pôle industriel (Siemens, Infineon, BMW, Rohde &amp; Schwarz), avec une excellente qualité de vie, et l'occasion d'améliorer mon allemand.</p>
-                    <p class="en"><strong>The city:</strong> Munich is a major industrial hub (Siemens, Infineon, BMW, Rohde &amp; Schwarz), with a high quality of life,  and a chance to improve my German language.</p>
+                    <p class="en"><strong>The city:</strong> Munich is a major industrial hub (Siemens, Infineon, BMW, Rohde &amp; Schwarz), with a high quality of life, and a chance to improve my German language.</p>
                   </div>
 
                   <!-- ---- Université 2 : University of Sydney ----
@@ -230,7 +211,6 @@
                           vérifie auprès des relations internationales qu'il est renouvelé. -->
                   <div class="universite">
                     <img class="drapeau" src="https://flagcdn.com/w80/au.png" alt="Australie">
-                  
                     <h5>The University of Sydney</h5>
                     <span class="meta">
                       <span class="fr">Sydney, Australie · Échange bilatéral</span>
@@ -336,7 +316,7 @@
           <article class="carte">
             <img src="projet-robot.png" alt="Robot Formule 1 / Formula 1 Robot">
             <span class="meta"><span class="fr">IUT Saint-Étienne</span><span class="en">IUT Saint-Étienne</span></span>
-            <h4><span class="fr">Robot Formule 1 </span><span class="en">Formula 1 robot</span></h4>
+            <h4><span class="fr">Robot Formule 1</span><span class="en">Formula 1 robot</span></h4>
             <p class="fr">Conception et programmation d'un robot Formule 1.</p>
             <p class="en">Design and programming of a Formula 1 robot.</p>
             <div class="etiquettes"><span>STM32</span><span>Proteus</span><span>I²C</span><span>C</span><span>SolidWorks</span></div>
@@ -346,7 +326,6 @@
 
           <!-- ======== PROJET 2 : ACCÉLÉROMÈTRE ======== -->
           <article class="carte">
-            <!-- style="..." : l'image s'affiche en entier, sans être coupée -->
             <img src="projet-accelerometre.jpg" alt="Accéléromètre / Accelerometer">
             <span class="meta"><span class="fr">SAE · en binôme</span><span class="en">Pair project</span></span>
             <h4><span class="fr">Compteur de mouvements</span><span class="en">Motion counter</span></h4>
@@ -359,8 +338,7 @@
 
           <!-- ======== PROJET 3 : SIMULATEUR C++ ======== -->
           <article class="carte">
-            <!-- style="..." : l'image s'affiche en entier, sans être coupée -->
-            <img src="projet-simulateur-carte.png" alt="Simulateur de tirs au but / Penalty shoot-out simulator" >
+            <img src="projet-simulateur-carte.png" alt="Simulateur de tirs au but / Penalty shoot-out simulator">
             <span class="meta"><span class="fr">Projet de programmation</span><span class="en">Programming project</span></span>
             <h4><span class="fr">Simulateur de tirs au but</span><span class="en">Penalty shoot-out simulator</span></h4>
             <p class="fr">Un programme en C++ qui calcule la trajectoire d'un ballon soumis au vent et prédit si le tir est marqué.</p>
@@ -373,8 +351,6 @@
         </div>
       </div>
     </section>
-
-    
 
     <!-- ==================================================================
          ONGLET 4 : SUSTAINABILITY & CIVIC ENGAGEMENT
@@ -469,27 +445,13 @@
     </section>
 
     <!-- ==================================================================
-         ONGLET 6 : CAREER DEVELOPMENT (pitch + stages)
+         ONGLET 6 : CAREER DEVELOPMENT (stages & expériences)
          ⚠️ NE PAS SUPPRIMER les 2 lignes <section ...> et <div class="conteneur"> :
             ce sont elles qui gardent la section centrée dans la page.
          ================================================================== -->
     <section id="carriere">
       <div class="conteneur">
 
-        <!-- ---------------- VIDÉO PITCH ----------------
-             ✏️ Mets ta vidéo sur YouTube en "Non répertoriée", puis remplace
-                ID_DE_TA_VIDEO par son identifiant (les lettres après "watch?v="). -->
-        <h3 id="pitch">Elevator pitch</h3>
-        <p class="intro">
-          <span class="fr">Ma Unique Value Proposition en 2-3 minutes (en anglais).</span>
-          <span class="en">My Unique Value Proposition in 2-3 minutes.</span>
-        </p>
-        <!-- style="..." : la vidéo est centrée -->
-        <div class="video" style="margin: 0 auto;">
-          <iframe src="https://www.youtube.com/embed/ID_DE_TA_VIDEO" title="Elevator pitch – Manel Merabet" allowfullscreen></iframe>
-        </div>
-
-       
         <!-- ---------------- STAGES & EXPÉRIENCES ----------------
              "En savoir plus" ouvre stage-nba-techno.html (le détail se modifie là-bas). -->
         <h3 id="stages"><span class="fr">Stages &amp; expériences</span><span class="en">Internships &amp; experience</span></h3>
@@ -517,7 +479,6 @@
 
         </div>
 
-       
       </div>
     </section>
 
@@ -527,7 +488,7 @@
     <section id="contact">
       <div class="conteneur">
         <h2 class="titre-section">Contact</h2>
-        
+
         <div class="contact-grille">
           <div class="carte">
             <h4>Email</h4>
